@@ -1,0 +1,34 @@
+# A Startup script that loads on startup and unloads on shutdown
+# Everything is unloaded in reverse order of loading, latest unload first
+#!/bin/sh
+
+case "$1" in
+  start)
+    # Load : scull driver
+    scull_load
+
+    # Load : faulty driver 
+    module_load faulty
+
+    # Load : hello module 
+    modprobe hello
+
+    echo "End of ldd module load"
+    ;;
+  stop)
+    # Unload : hello module 
+    rmmod hello
+
+    # Unload : faulty driver 
+    module_unload faulty
+
+    # Unload : scull driver 
+    scull_unload
+
+    echo "End of ldd module unload"
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+esac

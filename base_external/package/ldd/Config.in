@@ -1,0 +1,4 @@
+config BR2_PACKAGE_LDD
+	bool "LDD"
+	help
+	  This is a package for Linux Device Driver including misc-modules and scull drivers in the kernel image.
