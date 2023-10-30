@@ -4,31 +4,39 @@
 
 case "$1" in
   start)
-    # Load : scull driver
-    scull_load
-
     # Load : faulty driver 
-    module_load faulty
+    /usr/bin/module_load faulty
+
+    # Load : scull driver
+    /usr/bin/scull_load
+
+    # Load : chardriver
+    /usr/bin/aesdchar_load
 
     # Load : hello module 
     modprobe hello
 
-    echo "End of ldd module load"
+    echo "End of  module load"
     ;;
   stop)
+    
+    # Unload : faulty driver 
+    /usr/bin/module_unload
+
+    # Unload : scull driver 
+    /usr/bin/scull_unload
+
+    # Unload : aesdchar
+    /usr/bin/aesdchar_unload
+
     # Unload : hello module 
     rmmod hello
 
-    # Unload : faulty driver 
-    module_unload faulty
-
-    # Unload : scull driver 
-    scull_unload
-
-    echo "End of ldd module unload"
+    echo "End of  module unload"
     ;;
   *)
     echo "Usage: $0 {start|stop}"
     exit 1
     ;;
 esac
+
